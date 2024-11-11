@@ -10,7 +10,6 @@ public class InputListener : Singleton<InputListener>
 
     public Joystick joystick;
     public ButtonReferenceContainer buttons;
-    public Text shakeDebug;
 
     public event Action<float> OnMovement = delegate {};
     public event Action OnJump = delegate {};
@@ -63,13 +62,8 @@ public class InputListener : Singleton<InputListener>
 
         if (deltaAcceleration.sqrMagnitude >= shakeDetectionThreshold && nextShakeTime <= Time.unscaledTime)
         {
-            shakeDebug.text = $"Shaking {deltaAcceleration.sqrMagnitude}, threshold {shakeDetectionThreshold}";
             OnShake.Invoke();
             nextShakeTime = Time.unscaledTime + minTimeBetweenShakes;
-        }
-        else
-        {
-            shakeDebug.text = $"Not Shaking {deltaAcceleration.sqrMagnitude}, threshold {shakeDetectionThreshold}";
         }
     }
 }
